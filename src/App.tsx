@@ -2,21 +2,21 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
-import Layout from "./components/layout/Layout.tsx"
 import HomePage from "./components/HomePage"
 import AboutPage from "./components/AboutPage"
+import Person from "./components/person/Person"
+import ListPersons from "./components/listpersons/ListPersons"
 
 function App() {
   return (
-    <Layout>
-      <br />
-      <Router>
-        <Routes>
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </Router>
-    </Layout>
+    <Router>
+      <Routes>
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/list" element={<ListPersons />} />
+        <Route path="/person" element={<Person />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   )
 }
 
