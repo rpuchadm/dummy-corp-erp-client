@@ -8,43 +8,48 @@ import Container from "react-bootstrap/Container"
 import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
-import { FaEnvelope, FaExclamationTriangle } from "react-icons/fa"
+import { FaEnvelope, FaExclamationTriangle, FaUser } from "react-icons/fa"
 import AppCoinfig from "../../AppConfig"
 
 interface Person {
-  from: string
-  to: string
-  subject: string
-  content: string
+  dni: string
+  nombre: string
+  apellidos: string
+  email: string
+  telefono: string
 }
 
 const Person = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [from, setFrom] = useState<string>("")
-  const [to, setTo] = useState<string>("")
-  const [subject, setSubject] = useState<string>("")
-  const [content, setContent] = useState<string>("")
-  const handleFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFrom(e.target.value)
+  const [dni, setDni] = useState<string>("")
+  const [nombre, setNombre] = useState<string>("")
+  const [apellidos, setApellidos] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [telefono, setTelefono] = useState<string>("")
+  const handleDni = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDni(e.target.value)
   }
-  const handleTo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTo(e.target.value)
+  const handleNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNombre(e.target.value)
   }
-  const handleSubject = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSubject(e.target.value)
+  const handleApellidos = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setApellidos(e.target.value)
   }
-  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value)
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
   }
-  const handleSend = (
+  const handleTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTelefono(e.target.value)
+  }
+  const handleCreate = (
     ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     ev.preventDefault()
     setIsLoading(true)
-    const url = AppCoinfig.API_BASE_URL + "send"
-    const message = { from, to, subject, content }
+    const url = AppCoinfig.API_BASE_URL + "person"
+    const message = { dni, nombre, apellidos, email, telefono }
     const sendMessage = async (message: Person) => {
       const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
@@ -67,61 +72,73 @@ const Person = ({}) => {
   }
 
   return (
-    <Form onSubmit={handleSend}>
+    <Form onSubmit={handleCreate}>
       <Card>
-        <Card.Header>Message</Card.Header>
+        <Card.Header>Person</Card.Header>
         <Card.Body>
           <Container>
             <Row>
               <Col md={6}>
-                <Form.Group className="mb-3" controlId="formFrom">
-                  <Form.Label>From</Form.Label>
+                <Form.Group className="mb-3" controlId="formDni">
+                  <Form.Label>Dni</Form.Label>
                   <Form.Control
-                    type="email"
-                    name="from"
-                    placeholder="Enter email"
-                    value={from}
-                    onChange={handleFrom}
+                    type="text"
+                    name="dni"
+                    placeholder="Enter DNI"
+                    value={dni}
+                    onChange={handleDni}
                   />
                 </Form.Group>
               </Col>
               <Col md={6}>
-                <Form.Group className="mb-3" controlId="formTo">
-                  <Form.Label>To</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="to"
-                    placeholder="Enter email"
-                    value={to}
-                    onChange={handleTo}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="formSubject">
-                  <Form.Label>Subject</Form.Label>
+                <Form.Group className="mb-3" controlId="formNombre">
+                  <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    value={subject}
-                    onChange={handleSubject}
+                    name="nombre"
+                    placeholder="Enter Nombre"
+                    value={nombre}
+                    onChange={handleNombre}
                   />
                 </Form.Group>
               </Col>
             </Row>
             <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="formContent">
-                  <Form.Label>Content</Form.Label>
+              <Col md={12}>
+                <Form.Group className="mb-3" controlId="formApellidos">
+                  <Form.Label>Apellidos</Form.Label>
                   <Form.Control
-                    as="textarea"
-                    name="content"
-                    rows={3}
-                    value={content}
-                    onChange={handleContent}
+                    type="text"
+                    name="apellidos"
+                    placeholder="Enter Apellidos"
+                    value={apellidos}
+                    onChange={handleApellidos}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder="Enter Email"
+                    value={email}
+                    onChange={handleEmail}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3" controlId="formTelefono">
+                  <Form.Label>Teléfono</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="telefono"
+                    placeholder="Enter Teléfono"
+                    value={telefono}
+                    onChange={handleTelefono}
                   />
                 </Form.Group>
               </Col>
@@ -141,14 +158,10 @@ const Person = ({}) => {
           )}
           <Button
             disabled={!!(isLoading || message || error)}
-            onClick={handleSend}
+            onClick={handleCreate}
           >
-            {isLoading ? (
-              <Spinner animation="border" size="sm" />
-            ) : (
-              <FaEnvelope />
-            )}{" "}
-            Send
+            {isLoading ? <Spinner animation="border" size="sm" /> : <FaUser />}{" "}
+            Create
           </Button>
         </Card.Footer>
       </Card>

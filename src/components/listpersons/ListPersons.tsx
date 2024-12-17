@@ -9,19 +9,20 @@ import AppCoinfig from "../../AppConfig"
 import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/esm/Row"
 import Col from "react-bootstrap/esm/Col"
-import { FaEnvelope } from "react-icons/fa"
+import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa"
 
 interface Person {
   id: number
-  from: string
-  to: string
-  subject: string
-  content: string
+  dni: string
+  nombre: string
+  apellidos: string
+  email: string
+  telefono: string
   created_at: string
 }
 
 const ListPersons = () => {
-  const [messages, setMessages] = useState<Person[]>([])
+  const [persons, setPersons] = useState<Person[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const ListPersons = () => {
         },
       })
       const data = await response.json()
-      setMessages(data)
+      setPersons(data)
       setLoading(false)
     }
 
@@ -46,37 +47,44 @@ const ListPersons = () => {
   return (
     <>
       <h1>
-        <FaEnvelope /> List Persons
+        <FaUser /> List Persons
       </h1>
       {loading ? (
         <Spinner animation="border" role="status" />
       ) : (
         <ListGroup>
-          {messages.map((message) => (
-            <ListGroup.Item key={message.id}>
+          {persons.map((person) => (
+            <ListGroup.Item key={person.id}>
               <Card>
                 <Card.Header>
-                  <FaEnvelope /> Message #{message.id} -{" "}
-                  {dayjs(message.created_at).format("DD/MM/YYYY HH:mm")}
+                  <FaEnvelope /> Person #{person.id} -{" "}
+                  {dayjs(person.created_at).format("DD/MM/YYYY HH:mm")}
                 </Card.Header>
                 <Card.Body>
                   <Container>
                     <Row>
                       <Col md={6}>
-                        <strong>From:</strong> {message.from}
+                        <strong>Dni:</strong> {person.dni}
                       </Col>
                       <Col md={6}>
-                        <strong>To:</strong> {message.to}
+                        <strong>Nombre:</strong> {person.nombre}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <strong>Subject:</strong> {message.subject}
+                        <strong>Apellidos:</strong> {person.apellidos}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <small>{message.content}</small>
+                        <small>
+                          <FaEnvelope /> {person.email}
+                        </small>
+                      </Col>
+                      <Col>
+                        <small>
+                          <FaPhone /> {person.telefono}
+                        </small>
                       </Col>
                     </Row>
                   </Container>
