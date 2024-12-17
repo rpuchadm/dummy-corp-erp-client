@@ -19,6 +19,9 @@ npm install bootswatch
 npm install bootstrap
 npm install prettier --save-dev
 
+npm install react@18 react-dom@18
+npm install --save-dev @types/react@18 @types/react-dom@18
 npm install react-router-dom@6 ????
+
 
 npm add -D sass-embedded
