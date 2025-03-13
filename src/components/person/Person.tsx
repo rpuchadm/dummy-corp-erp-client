@@ -9,15 +9,9 @@ import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 import { FaEnvelope, FaExclamationTriangle, FaUser } from "react-icons/fa"
-import AppCoinfig from "../../AppConfig"
 
-interface Person {
-  dni: string
-  nombre: string
-  apellidos: string
-  email: string
-  telefono: string
-}
+import AppCoinfig from "../../AppConfig"
+import { IPerson } from "./types"
 
 const Person = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -49,8 +43,8 @@ const Person = ({}) => {
     ev.preventDefault()
     setIsLoading(true)
     const url = AppCoinfig.API_BASE_URL + "person"
-    const message = { dni, nombre, apellidos, email, telefono }
-    const sendMessage = async (message: Person) => {
+    const person = { dni, nombre, apellidos, email, telefono }
+    const sendPerson = async (person: IPerson) => {
       const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "POST",
@@ -58,7 +52,7 @@ const Person = ({}) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${lstoken}`,
         },
-        body: JSON.stringify(message),
+        body: JSON.stringify(person),
       })
       const data = await response.json()
       if (response.status !== 200 || data.error) {
@@ -68,7 +62,7 @@ const Person = ({}) => {
       }
       setIsLoading(false)
     }
-    sendMessage(message)
+    sendPerson(person)
   }
 
   return (

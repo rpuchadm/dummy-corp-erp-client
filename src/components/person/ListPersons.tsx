@@ -3,31 +3,23 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 
 import Card from "react-bootstrap/Card"
+import Col from "react-bootstrap/Col"
+import Container from "react-bootstrap/Container"
 import ListGroup from "react-bootstrap/ListGroup"
+import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
-import AppCoinfig from "../../AppConfig"
-import Container from "react-bootstrap/esm/Container"
-import Row from "react-bootstrap/esm/Row"
-import Col from "react-bootstrap/esm/Col"
 import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa"
 
-interface Person {
-  id: number
-  dni: string
-  nombre: string
-  apellidos: string
-  email: string
-  telefono: string
-  created_at: string
-}
+import AppCoinfig from "../../AppConfig"
+import { IPersonList } from "./types"
 
 const ListPersons = () => {
-  const [persons, setPersons] = useState<Person[]>([])
+  const [persons, setPersons] = useState<IPersonList[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const url = AppCoinfig.API_BASE_URL + "persons"
-    const fetchMessages = async () => {
+    const fetchPersons = async () => {
       const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "GET",
@@ -41,7 +33,7 @@ const ListPersons = () => {
       setLoading(false)
     }
 
-    fetchMessages()
+    fetchPersons()
   }, [])
 
   return (
@@ -49,6 +41,9 @@ const ListPersons = () => {
       <h1>
         <FaUser /> List Persons
       </h1>
+      <p style={{ marginTop: "20px", textAlign: "right" }}>
+        <a href="/person">New Person</a>
+      </p>
       {loading ? (
         <Spinner animation="border" role="status" />
       ) : (
