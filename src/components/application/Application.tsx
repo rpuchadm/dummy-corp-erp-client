@@ -12,30 +12,37 @@ import Spinner from "react-bootstrap/Spinner"
 import AppConfig from "../../AppConfig"
 
 import { IApplication } from "./types"
+import { FaAppStore, FaExclamationTriangle } from "react-icons/fa"
 
-const Application = ({}) => {
+interface ApplicationProps {
+  application: IApplication
+}
+const Application = ({ application }: ApplicationProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [client_id, setClient_id] = useState<string>("")
-  const [client_url, setClient_url] = useState<string>("")
+  const [client_id, setClient_id] = useState<string>(application.client_id)
+  const [client_url, setClient_url] = useState<string>(application.client_url)
   const handleClient_id = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClient_id(e.target.value)
   }
   const handleClient_url = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClient_url(e.target.value)
   }
-  const handleCreate = (
+  const id = application?.id ? application.id : 0
+  const method = id ? "PUT" : "POST"
+  const handleSave = (
     ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     ev.preventDefault()
     setIsLoading(true)
-    const url = AppConfig.API_BASE_URL + "application"
-    const application = { client_id, client_url }
+
+    const url = AppConfig.API_BASE_URL + "application/" + id
+    const application = { id, client_id, client_url }
     const sendApplication = async (application: IApplication) => {
       const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
-        method: "POST",
+        method: method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${lstoken}`,
@@ -43,12 +50,10 @@ const Application = ({}) => {
         body: JSON.stringify(application),
       })
       const data = await response.json()
-      if (response.ok) {
-        setMessage("Application created")
-        setError("")
-      } else {
-        setMessage("")
-        setError(data.application)
+      if (response.status !== 200 || data.error) {
+        setError(data.error)
+      } else if (data.message) {
+        setMessage(data.message)
       }
       setIsLoading(false)
     }
@@ -58,7 +63,7 @@ const Application = ({}) => {
   return (
     <>
       <h1>Create Application</h1>
-      <Form onSubmit={handleCreate}>
+      <Form onSubmit={handleSave}>
         <Form.Group className="mb-3" controlId="formBasicClient_id">
           <Form.Label>Client ID</Form.Label>
           <Form.Control
@@ -77,12 +82,28 @@ const Application = ({}) => {
             onChange={handleClient_url}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          {isLoading ? "Loading..." : "Create"}
+        {error && (
+          <Alert variant="danger">
+            <FaExclamationTriangle size={20} /> {error}
+          </Alert>
+        )}
+        {message && (
+          <Alert variant="success">
+            <FaAppStore size={20} /> {message}
+          </Alert>
+        )}
+        <Button
+          disabled={!!(isLoading || message || error)}
+          onClick={handleSave}
+        >
+          {isLoading ? (
+            <Spinner animation="border" size="sm" />
+          ) : (
+            <FaAppStore />
+          )}{" "}
+          {application.id ? <>Update</> : <>Create</>}
         </Button>
       </Form>
-      {message ? <Alert variant="success">{message}</Alert> : null}
-      {error ? <Alert variant="danger">{error}</Alert> : null}
     </>
   )
 }

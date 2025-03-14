@@ -7,8 +7,8 @@ import AboutPage from "./components/AboutPage"
 
 import PersonContainer from "./components/person/PersonContainer"
 import ListPersons from "./components/person/ListPersons"
-import Application from "./components/application/Application"
 import ListApplications from "./components/application/ListApplications"
+import ApplicationContainer from "./components/application/ApplicationContainer"
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
 
         <Route path="/person/:id" element={<PersonContainer />} />
         <Route path="/listpersons" element={<ListPersons />} />
-        <Route path="/application" element={<Application />} />
+        <Route path="/application/:id" element={<ApplicationContainer />} />
         <Route path="/listapplications" element={<ListApplications />} />
 
         <Route path="/" element={<HomePage />} />

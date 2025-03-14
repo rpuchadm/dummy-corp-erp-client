@@ -40,7 +40,7 @@ const ListApplications = () => {
     <>
       <h1>List Applications</h1>
       <p style={{ marginTop: "20px", textAlign: "right" }}>
-        <a href="/application">New Application</a>
+        <a href="/application/0">New Application</a>
       </p>
       {loading ? (
         <Spinner animation="border" role="status" />
@@ -49,6 +49,16 @@ const ListApplications = () => {
           {applications?.map((application) => (
             <ListGroup.Item key={application.id}>
               <Card>
+                <Card.Header>
+                  Application #{application.id} -{" "}
+                  {dayjs(application.created_at).format("DD/MM/YYYY HH:mm")}
+                  <a
+                    href={`/application/${application.id}`}
+                    style={{ float: "right" }}
+                  >
+                    Edit
+                  </a>
+                </Card.Header>
                 <Card.Body>
                   <Card.Title>{application.client_id}</Card.Title>
                   <Card.Text>{application.client_url}</Card.Text>
