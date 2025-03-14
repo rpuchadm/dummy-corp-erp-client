@@ -3,10 +3,7 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 
 import Card from "react-bootstrap/Card"
-import Col from "react-bootstrap/Col"
-import Container from "react-bootstrap/Container"
 import ListGroup from "react-bootstrap/ListGroup"
-import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 
 import AppConfig from "../../AppConfig"

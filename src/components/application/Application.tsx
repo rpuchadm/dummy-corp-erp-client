@@ -2,11 +2,7 @@ import React, { useState } from "react"
 
 import Alert from "react-bootstrap/Alert"
 import Button from "react-bootstrap/Button"
-import Card from "react-bootstrap/Card"
-import Col from "react-bootstrap/Col"
-import Container from "react-bootstrap/Container"
 import Form from "react-bootstrap/Form"
-import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 
 import AppConfig from "../../AppConfig"
