@@ -50,8 +50,7 @@ const ListApplications = () => {
             <ListGroup.Item key={application.id}>
               <Card>
                 <Card.Header>
-                  Application #{application.id} -{" "}
-                  {dayjs(application.created_at).format("DD/MM/YYYY HH:mm")}
+                  Application #{application.id}
                   <a
                     href={`/application/${application.id}`}
                     style={{ float: "right" }}
@@ -64,11 +63,8 @@ const ListApplications = () => {
                   <Card.Text>{application.client_url}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">
-                    Created at{" "}
-                    {dayjs(application.created_at).format(
-                      "DD/MM/YYYY HH:mm:ss"
-                    )}
+                  <small style={{ color: "gray" }}>
+                    Created {dayjs(application.created_at).format("DD/MM/YYYY")}
                   </small>
                 </Card.Footer>
               </Card>
