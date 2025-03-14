@@ -11,10 +11,10 @@ import Spinner from "react-bootstrap/Spinner"
 import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
-import { IPersonList } from "./types"
+import { IPerson } from "./types"
 
 const ListPersons = () => {
-  const [persons, setPersons] = useState<IPersonList[]>([])
+  const [persons, setPersons] = useState<IPerson[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const ListPersons = () => {
         <FaUser /> List Persons
       </h1>
       <p style={{ marginTop: "20px", textAlign: "right" }}>
-        <a href="/person">New Person</a>
+        <a href="/person/0">New Person</a>
       </p>
       {loading ? (
         <Spinner animation="border" role="status" />
@@ -54,6 +54,9 @@ const ListPersons = () => {
                 <Card.Header>
                   <FaEnvelope /> Person #{person.id} -{" "}
                   {dayjs(person.created_at).format("DD/MM/YYYY HH:mm")}
+                  <a href={`/person/${person.id}`} style={{ float: "right" }}>
+                    Edit
+                  </a>
                 </Card.Header>
                 <Card.Body>
                   <Container>

@@ -13,15 +13,19 @@ import { FaEnvelope, FaExclamationTriangle, FaUser } from "react-icons/fa"
 import AppCoinfig from "../../AppConfig"
 import { IPerson } from "./types"
 
-const Person = ({}) => {
+interface PersonProps {
+  person: IPerson
+}
+
+const Person = ({ person }: PersonProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [dni, setDni] = useState<string>("")
-  const [nombre, setNombre] = useState<string>("")
-  const [apellidos, setApellidos] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [telefono, setTelefono] = useState<string>("")
+  const [dni, setDni] = useState<string>(person.dni)
+  const [nombre, setNombre] = useState<string>(person.nombre)
+  const [apellidos, setApellidos] = useState<string>(person.apellidos)
+  const [email, setEmail] = useState<string>(person.email)
+  const [telefono, setTelefono] = useState<string>(person.telefono)
   const handleDni = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDni(e.target.value)
   }
@@ -37,17 +41,20 @@ const Person = ({}) => {
   const handleTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTelefono(e.target.value)
   }
-  const handleCreate = (
+  const id = person?.id ? person.id : 0
+  const method = id ? "PUT" : "POST"
+  const handleSave = (
     ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     ev.preventDefault()
     setIsLoading(true)
-    const url = AppCoinfig.API_BASE_URL + "person"
-    const person = { dni, nombre, apellidos, email, telefono }
+
+    const url = AppCoinfig.API_BASE_URL + "person/" + id
+    const person = { id, dni, nombre, apellidos, email, telefono }
     const sendPerson = async (person: IPerson) => {
       const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
-        method: "POST",
+        method: method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${lstoken}`,
@@ -66,7 +73,7 @@ const Person = ({}) => {
   }
 
   return (
-    <Form onSubmit={handleCreate}>
+    <Form onSubmit={handleSave}>
       <Card>
         <Card.Header>Person</Card.Header>
         <Card.Body>
@@ -152,10 +159,10 @@ const Person = ({}) => {
           )}
           <Button
             disabled={!!(isLoading || message || error)}
-            onClick={handleCreate}
+            onClick={handleSave}
           >
             {isLoading ? <Spinner animation="border" size="sm" /> : <FaUser />}{" "}
-            Create
+            {person.id ? <>Update</> : <>Create</>}
           </Button>
         </Card.Footer>
       </Card>

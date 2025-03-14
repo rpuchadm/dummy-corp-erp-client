@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import HomePage from "./components/HomePage"
 import AboutPage from "./components/AboutPage"
 
-import Person from "./components/person/Person"
+import PersonContainer from "./components/person/PersonContainer"
 import ListPersons from "./components/person/ListPersons"
 import Application from "./components/application/Application"
 import ListApplications from "./components/application/ListApplications"
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/about" element={<AboutPage />} />
 
-        <Route path="/person" element={<Person />} />
+        <Route path="/person/:id" element={<PersonContainer />} />
         <Route path="/listpersons" element={<ListPersons />} />
         <Route path="/application" element={<Application />} />
         <Route path="/listapplications" element={<ListApplications />} />
