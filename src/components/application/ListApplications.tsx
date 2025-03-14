@@ -26,7 +26,7 @@ const ListApplications = () => {
           Authorization: `Bearer ${lstoken}`,
         },
       })
-      const data = await response.json()
+      const data = await response.json().then((data) => data as IApplication[])
       setApplications(data)
       setLoading(false)
     }

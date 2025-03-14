@@ -28,7 +28,7 @@ const ListPersons = () => {
           Authorization: `Bearer ${lstoken}`,
         },
       })
-      const data = await response.json()
+      const data = await response.json().then((data) => data as IPerson[])
       setPersons(data)
       setLoading(false)
     }
