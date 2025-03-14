@@ -3,7 +3,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import HomePage from "./components/HomePage"
-import AboutPage from "./components/AboutPage"
 
 import PersonContainer from "./components/person/PersonContainer"
 import ListPersons from "./components/person/ListPersons"
@@ -14,8 +13,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/about" element={<AboutPage />} />
-
         <Route path="/person/:id" element={<PersonContainer />} />
         <Route path="/listpersons" element={<ListPersons />} />
         <Route path="/application/:id" element={<ApplicationContainer />} />

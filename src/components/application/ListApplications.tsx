@@ -12,6 +12,7 @@ import Spinner from "react-bootstrap/Spinner"
 import AppConfig from "../../AppConfig"
 
 import { IApplication } from "./types"
+import { FaAppStore } from "react-icons/fa"
 
 const ListApplications = () => {
   const [applications, setApplications] = useState<IApplication[]>([])
@@ -38,7 +39,9 @@ const ListApplications = () => {
 
   return (
     <>
-      <h1>List Applications</h1>
+      <h1>
+        <FaAppStore /> List Applications
+      </h1>
       <p style={{ marginTop: "20px", textAlign: "right" }}>
         <a href="/application/0">New Application</a>
       </p>
