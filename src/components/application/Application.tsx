@@ -17,7 +17,7 @@ import { Card } from "react-bootstrap"
 
 interface ApplicationProps {
   data: IApplicationData
-  setData: React.Dispatch<React.SetStateAction<IApplicationData | null>>
+  setData: React.Dispatch<React.SetStateAction<IApplicationData>>
 }
 const Application = ({ data, setData }: ApplicationProps) => {
   const application = data.application
@@ -61,12 +61,14 @@ const Application = ({ data, setData }: ApplicationProps) => {
       } else {
         setMessage("Cliente atualizado correctamente")
         const application = data as IApplication
-        setData((prev) => {
-          return {
-            ...prev,
-            application,
-          }
-        })
+        if (application) {
+          setData((prev) => {
+            return {
+              ...prev,
+              application,
+            }
+          })
+        }
       }
       setIsLoading(false)
     }

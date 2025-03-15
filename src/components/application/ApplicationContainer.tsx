@@ -16,10 +16,10 @@ import LPersonApp from "./LPersonApp"
 const ApplicationContainer = ({}) => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [data, setData] = useState<IApplicationData | null>({
+  const [data, setData] = useState<IApplicationData>({
     application: { client_id: "", client_url: "", client_url_callback: "" },
     lpersonapp: [],
-    lperson: [],
+    lper: [],
   })
   const [error, setError] = useState<string>("")
 
