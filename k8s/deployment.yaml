@@ -14,7 +14,7 @@ spec:
         app: dummy-corp-erp-vite-nginx-app
     spec:
       containers:
-        - name: cfp-poseidon-admin-nginx
+        - name: dummy-corp-erp-vite-app-nginx
           image: localhost:32000/dummy-corp-erp-vite-app:latest
           ports:
             - name: http-port
