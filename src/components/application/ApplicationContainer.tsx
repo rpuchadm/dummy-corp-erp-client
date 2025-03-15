@@ -9,13 +9,13 @@ import Spinner from "react-bootstrap/Spinner"
 import { FaExclamationTriangle } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
-import { IApplication } from "./types"
+import { IApplication, IApplicationData } from "./types"
 import Application from "./Application"
 
 const ApplicationContainer = ({}) => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [data, setData] = useState<IApplication | null>({
+  const [data, setData] = useState<IApplicationData | null>({
     client_id: "",
     client_url: "",
   })
@@ -37,7 +37,7 @@ const ApplicationContainer = ({}) => {
       if (response.status !== 200 || data.error) {
         setError(data.error)
       } else {
-        setData(data as IApplication)
+        setData(data as IApplicationData)
       }
       setIsLoading(false)
     }
@@ -55,7 +55,16 @@ const ApplicationContainer = ({}) => {
           {isLoading || !data ? (
             <Spinner animation="border" role="status" />
           ) : (
-            <Application {...{ data, setData }} />
+            <>
+              {" "}
+              {data && data.application ? (
+                <Application {...{ data, setData }} />
+              ) : (
+                <Alert variant="danger">
+                  <FaExclamationTriangle /> Application not found
+                </Alert>
+              )}
+            </>
           )}
         </Col>
       </Row>

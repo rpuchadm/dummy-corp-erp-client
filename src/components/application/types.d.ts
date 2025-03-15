@@ -7,4 +7,8 @@ interface IApplication {
   created_at?: string
 }
 
-export { IApplication }
+interface IApplicationData {
+  application: IApplication
+}
+
+export { IApplication, IApplicationData }

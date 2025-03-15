@@ -7,7 +7,7 @@ import Spinner from "react-bootstrap/Spinner"
 
 import AppConfig from "../../AppConfig"
 
-import { IApplication } from "./types"
+import { IApplication, IApplicationData } from "./types"
 import {
   FaAppStore,
   FaCheckCircle,
@@ -16,17 +16,18 @@ import {
 import { Card } from "react-bootstrap"
 
 interface ApplicationProps {
-  data: IApplication
-  setData: React.Dispatch<React.SetStateAction<IApplication | null>>
+  data: IApplicationData
+  setData: React.Dispatch<React.SetStateAction<IApplicationData | null>>
 }
 const Application = ({ data, setData }: ApplicationProps) => {
+  const application = data.application
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [client_id, setClient_id] = useState<string>(data.client_id)
-  const [client_url, setClient_url] = useState<string>(data.client_url)
+  const [client_id, setClient_id] = useState<string>(application.client_id)
+  const [client_url, setClient_url] = useState<string>(application.client_url)
   const [client_url_callback, setClient_url_callback] = useState<string>(
-    data.client_url_callback ? data.client_url_callback : ""
+    application.client_url_callback ? application.client_url_callback : ""
   )
   const handleClient_id = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClient_id(e.target.value)
@@ -34,7 +35,7 @@ const Application = ({ data, setData }: ApplicationProps) => {
   const handleClient_url = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClient_url(e.target.value)
   }
-  const id = data?.id ? data.id : 0
+  const id = application?.id ? application.id : 0
   const method = id ? "PUT" : "POST"
   const handleSave = (
     ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
@@ -59,7 +60,13 @@ const Application = ({ data, setData }: ApplicationProps) => {
         setError(data.error)
       } else {
         setMessage("Cliente atualizado correctamente")
-        setData(data as IApplication)
+        const application = data as IApplication
+        setData((prev) => {
+          return {
+            ...prev,
+            application,
+          }
+        })
       }
       setIsLoading(false)
     }
@@ -103,7 +110,11 @@ const Application = ({ data, setData }: ApplicationProps) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicClient_secret">
             <Form.Label>Client Secret</Form.Label>
-            <Form.Control type="text" value={data.client_secret} readOnly />
+            <Form.Control
+              type="text"
+              value={application.client_secret}
+              readOnly
+            />
             <Form.Text className="text-muted">
               <span style={{ color: "red" }}>
                 This is a secret key that should not be shared.
@@ -135,7 +146,7 @@ const Application = ({ data, setData }: ApplicationProps) => {
             ) : (
               <FaAppStore />
             )}{" "}
-            {data.id ? <>Update</> : <>Create</>}
+            {application.id ? <>Update</> : <>Create</>}
           </Button>
         </Card.Footer>
       </Form>
