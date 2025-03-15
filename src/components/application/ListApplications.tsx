@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 import dayjs from "dayjs"
 
@@ -45,9 +45,9 @@ const ListApplications = () => {
       {loading ? (
         <Spinner animation="border" role="status" />
       ) : (
-        <ListGroup>
+        <>
           {applications?.map((application) => (
-            <ListGroup.Item key={application.id}>
+            <Fragment key={application.id}>
               <Card>
                 <Card.Header>
                   Application #{application.id}
@@ -68,9 +68,10 @@ const ListApplications = () => {
                   </small>
                 </Card.Footer>
               </Card>
-            </ListGroup.Item>
+              <br />
+            </Fragment>
           ))}
-        </ListGroup>
+        </>
       )}
     </>
   )

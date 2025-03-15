@@ -13,6 +13,7 @@ import {
   FaCheckCircle,
   FaExclamationTriangle,
 } from "react-icons/fa"
+import { Card } from "react-bootstrap"
 
 interface ApplicationProps {
   data: IApplication
@@ -66,74 +67,79 @@ const Application = ({ data, setData }: ApplicationProps) => {
   }
 
   return (
-    <>
-      <h1>
+    <Card>
+      <Card.Header>
         <FaAppStore /> Application
-      </h1>
+      </Card.Header>
+
       <Form onSubmit={handleSave}>
-        <Form.Group className="mb-3" controlId="formBasicClient_id">
-          <Form.Label>Client ID (*)</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter client ID"
-            value={client_id}
-            onChange={handleClient_id}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicClient_url">
-          <Form.Label>Client URL (*)</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter client URL"
-            value={client_url}
-            onChange={handleClient_url}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicClient_url_callback">
-          <Form.Label>Client URL Callback</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter client URL Callback"
-            value={client_url_callback}
-            onChange={(e) => setClient_url_callback(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicClient_secret">
-          <Form.Label>Client Secret</Form.Label>
-          <Form.Control type="text" value={data.client_secret} readOnly />
-          <Form.Text className="text-muted">
-            <span style={{ color: "red" }}>
-              This is a secret key that should not be shared.
-              <br />
-              IMPORTANT: Every time you save the application, a new secret key
-              is generated if callback URL is defined.
-            </span>
-          </Form.Text>
-        </Form.Group>
-        {error && (
-          <Alert variant="danger">
-            <FaExclamationTriangle size={20} /> {error}
-          </Alert>
-        )}
-        {message && (
-          <Alert variant="success">
-            <FaCheckCircle size={20} /> {message}
-          </Alert>
-        )}
-        <Button
-          disabled={!!(isLoading || message || error)}
-          onClick={handleSave}
-          variant="primary"
-        >
-          {isLoading ? (
-            <Spinner animation="border" size="sm" />
-          ) : (
-            <FaAppStore />
-          )}{" "}
-          {data.id ? <>Update</> : <>Create</>}
-        </Button>
+        <Card.Body>
+          <Form.Group className="mb-3" controlId="formBasicClient_id">
+            <Form.Label>Client ID (*)</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter client ID"
+              value={client_id}
+              onChange={handleClient_id}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicClient_url">
+            <Form.Label>Client URL (*)</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter client URL"
+              value={client_url}
+              onChange={handleClient_url}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicClient_url_callback">
+            <Form.Label>Client URL Callback</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter client URL Callback"
+              value={client_url_callback}
+              onChange={(e) => setClient_url_callback(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicClient_secret">
+            <Form.Label>Client Secret</Form.Label>
+            <Form.Control type="text" value={data.client_secret} readOnly />
+            <Form.Text className="text-muted">
+              <span style={{ color: "red" }}>
+                This is a secret key that should not be shared.
+                <br />
+                IMPORTANT: Every time you save the application, a new secret key
+                is generated if callback URL is defined.
+              </span>
+            </Form.Text>
+          </Form.Group>
+        </Card.Body>
+        <Card.Footer>
+          {error && (
+            <Alert variant="danger">
+              <FaExclamationTriangle size={20} /> {error}
+            </Alert>
+          )}
+          {message && (
+            <Alert variant="success">
+              <FaCheckCircle size={20} /> {message}
+            </Alert>
+          )}
+          <Button
+            disabled={!!(isLoading || message || error)}
+            onClick={handleSave}
+            variant="primary"
+          >
+            {isLoading ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <FaAppStore />
+            )}{" "}
+            {data.id ? <>Update</> : <>Create</>}
+          </Button>
+        </Card.Footer>
       </Form>
-    </>
+    </Card>
   )
 }
 
