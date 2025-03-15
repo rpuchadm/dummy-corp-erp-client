@@ -8,7 +8,11 @@ import Spinner from "react-bootstrap/Spinner"
 import AppConfig from "../../AppConfig"
 
 import { IApplication } from "./types"
-import { FaAppStore, FaExclamationTriangle } from "react-icons/fa"
+import {
+  FaAppStore,
+  FaCheckCircle,
+  FaExclamationTriangle,
+} from "react-icons/fa"
 
 interface ApplicationProps {
   application: IApplication
@@ -85,7 +89,7 @@ const Application = ({ application }: ApplicationProps) => {
         )}
         {message && (
           <Alert variant="success">
-            <FaAppStore size={20} /> {message}
+            <FaCheckCircle size={20} /> {message}
           </Alert>
         )}
         <Button

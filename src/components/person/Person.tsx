@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container"
 import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
-import { FaEnvelope, FaExclamationTriangle, FaUser } from "react-icons/fa"
+import { FaCheckCircle, FaExclamationTriangle, FaUser } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
 import { IPerson } from "./types"
@@ -154,7 +154,7 @@ const Person = ({ person }: PersonProps) => {
           )}
           {message && (
             <Alert variant="success">
-              <FaEnvelope size={20} /> {message}
+              <FaCheckCircle size={20} /> {message}
             </Alert>
           )}
           <Button
