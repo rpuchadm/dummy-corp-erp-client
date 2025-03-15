@@ -18,11 +18,9 @@ const PersonContainer = ({}) => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [data, setData] = useState<IPersonData | null>({
-    dni: "",
-    nombre: "",
-    apellidos: "",
-    email: "",
-    telefono: "",
+    person: { dni: "", nombre: "", apellidos: "", email: "", telefono: "" },
+    lpersonapp: [],
+    lapp: [],
   })
   const [error, setError] = useState<string>("")
 
