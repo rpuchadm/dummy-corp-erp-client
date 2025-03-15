@@ -8,6 +8,7 @@ import PersonContainer from "./components/person/PersonContainer"
 import ListPersons from "./components/person/ListPersons"
 import ListApplications from "./components/application/ListApplications"
 import ApplicationContainer from "./components/application/ApplicationContainer"
+import PersonAppContainer from "./components/PersonApp/PersonAppContainer"
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
         <Route path="/listpersons" element={<ListPersons />} />
         <Route path="/application/:id" element={<ApplicationContainer />} />
         <Route path="/listapplications" element={<ListApplications />} />
+        <Route
+          path="/personapp/:idper/:idapp"
+          element={<PersonAppContainer />}
+        />
 
         <Route path="/" element={<HomePage />} />
       </Routes>

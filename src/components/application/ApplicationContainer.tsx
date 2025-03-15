@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 import { FaExclamationTriangle } from "react-icons/fa"
 
-import AppCoinfig from "../../AppConfig"
+import AppConfig from "../../AppConfig"
 import { IApplicationData } from "./types"
 import Application from "./Application"
 import LPersonApp from "./LPersonApp"
@@ -24,9 +24,9 @@ const ApplicationContainer = ({}) => {
   const [error, setError] = useState<string>("")
 
   useEffect(() => {
-    const url = AppCoinfig.API_BASE_URL + "application/" + id
+    const url = AppConfig.API_BASE_URL + "application/" + id
     const fetchApplication = async () => {
-      const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
+      const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "GET",
         credentials: "omit",

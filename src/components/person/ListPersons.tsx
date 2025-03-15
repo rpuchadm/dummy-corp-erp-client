@@ -10,7 +10,7 @@ import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa"
 
-import AppCoinfig from "../../AppConfig"
+import AppConfig from "../../AppConfig"
 import { IPerson } from "./types"
 
 const ListPersons = () => {
@@ -18,9 +18,9 @@ const ListPersons = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const url = AppCoinfig.API_BASE_URL + "persons"
+    const url = AppConfig.API_BASE_URL + "persons"
     const fetchPersons = async () => {
-      const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
+      const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "GET",
         credentials: "omit",

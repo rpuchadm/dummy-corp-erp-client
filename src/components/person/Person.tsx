@@ -10,7 +10,7 @@ import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 import { FaCheckCircle, FaExclamationTriangle, FaUser } from "react-icons/fa"
 
-import AppCoinfig from "../../AppConfig"
+import AppConfig from "../../AppConfig"
 import { IPerson, IPersonData } from "./types"
 
 interface PersonProps {
@@ -50,10 +50,10 @@ const Person = ({ data }: PersonProps) => {
     ev.preventDefault()
     setIsLoading(true)
 
-    const url = AppCoinfig.API_BASE_URL + "person/" + id
+    const url = AppConfig.API_BASE_URL + "person/" + id
     const person = { id, dni, nombre, apellidos, email, telefono }
     const sendPerson = async (person: IPerson) => {
-      const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
+      const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: method,
         headers: {

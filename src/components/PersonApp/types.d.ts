@@ -1,0 +1,28 @@
+interface IApplication {
+  id: number
+  client_id: string
+  client_url: string
+}
+interface IPerson {
+  id?: number
+  dni: string
+  nombre: string
+  apellidos: string
+  email: string
+  telefono: string
+  created_at?: string
+}
+interface IPersonApp {
+  auth_client_id: number
+  person_id: number
+  profile: string
+  id?: number
+  created_at?: string
+}
+interface IPersonAppData {
+  personapp: IPersonApp
+  person: IPerson
+  app: IApplication
+}
+
+export { IApplication, IPerson, IPersonApp, IPersonAppData }

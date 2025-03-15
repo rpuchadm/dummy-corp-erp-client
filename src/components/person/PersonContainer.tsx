@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Alert from "react-bootstrap/Alert"
 
+import Alert from "react-bootstrap/Alert"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
-
 import Row from "react-bootstrap/Row"
 import Spinner from "react-bootstrap/Spinner"
 import { FaExclamationTriangle } from "react-icons/fa"
 
-import AppCoinfig from "../../AppConfig"
+import AppConfig from "../../AppConfig"
 import { IPersonData } from "./types"
 import Person from "./Person"
 import LPersonApp from "./LPersonApp"
@@ -25,9 +24,9 @@ const PersonContainer = ({}) => {
   const [error, setError] = useState<string>("")
 
   useEffect(() => {
-    const url = AppCoinfig.API_BASE_URL + "person/" + id
+    const url = AppConfig.API_BASE_URL + "person/" + id
     const fetchPerson = async () => {
-      const lstoken = localStorage.getItem(AppCoinfig.TOKEN_ITEM_NAME)
+      const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "GET",
         credentials: "omit",
