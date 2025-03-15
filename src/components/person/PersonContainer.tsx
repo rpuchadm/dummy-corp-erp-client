@@ -10,13 +10,14 @@ import Spinner from "react-bootstrap/Spinner"
 import { FaExclamationTriangle } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
-import { IPerson } from "./types"
+import { IPersonData } from "./types"
 import Person from "./Person"
+import LPersonApp from "./LPersonApp"
 
 const PersonContainer = ({}) => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [data, setData] = useState<IPerson | null>({
+  const [data, setData] = useState<IPersonData | null>({
     dni: "",
     nombre: "",
     apellidos: "",
@@ -41,7 +42,7 @@ const PersonContainer = ({}) => {
       if (response.status !== 200 || data.error) {
         setError(data.error)
       } else {
-        setData(data as IPerson)
+        setData(data as IPersonData)
       }
       setIsLoading(false)
     }
@@ -56,11 +57,20 @@ const PersonContainer = ({}) => {
     <Container>
       <Row>
         <Col>
-          {isLoading || !data ? (
+          {isLoading ? (
             <Spinner animation="border" role="status" />
           ) : (
-            <Person person={data} />
+            <>
+              {data && data.person ? (
+                <Person data={data} />
+              ) : (
+                <Alert variant="danger">
+                  <FaExclamationTriangle /> Person not found
+                </Alert>
+              )}
+            </>
           )}
+          <br />
         </Col>
       </Row>
       <Row>
@@ -71,6 +81,13 @@ const PersonContainer = ({}) => {
             </Alert>
           )}
         </Col>
+      </Row>
+      <Row>
+        {data && data.lpersonapp?.length && data.lapp?.length && (
+          <Col>
+            <LPersonApp data={data} />
+          </Col>
+        )}
       </Row>
     </Container>
   )

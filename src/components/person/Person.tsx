@@ -11,13 +11,14 @@ import Spinner from "react-bootstrap/Spinner"
 import { FaCheckCircle, FaExclamationTriangle, FaUser } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
-import { IPerson } from "./types"
+import { IPerson, IPersonData } from "./types"
 
 interface PersonProps {
-  person: IPerson
+  data: IPersonData
 }
 
-const Person = ({ person }: PersonProps) => {
+const Person = ({ data }: PersonProps) => {
+  const person = data.person
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")

@@ -8,4 +8,24 @@ interface IPerson {
   created_at?: string
 }
 
-export { IPerson }
+interface IApplication {
+  id: number
+  client_id: string
+  client_url: string
+}
+
+interface IPersonApp {
+  id: number
+  person_id: number
+  auth_client_id: number
+  created_at: string
+  profile: any
+}
+
+interface IPersonData {
+  person: IPerson
+  lpersonapp: IPersonApp[]
+  lapp: IApplication[]
+}
+
+export { IApplication, IPerson, IPersonApp, IPersonData }
