@@ -9,15 +9,17 @@ import Spinner from "react-bootstrap/Spinner"
 import { FaExclamationTriangle } from "react-icons/fa"
 
 import AppCoinfig from "../../AppConfig"
-import { IApplication, IApplicationData } from "./types"
+import { IApplicationData } from "./types"
 import Application from "./Application"
+import LPersonApp from "./LPersonApp"
 
 const ApplicationContainer = ({}) => {
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [data, setData] = useState<IApplicationData | null>({
-    client_id: "",
-    client_url: "",
+    application: { client_id: "", client_url: "", client_url_callback: "" },
+    lpersonapp: [],
+    lperson: [],
   })
   const [error, setError] = useState<string>("")
 
@@ -66,6 +68,7 @@ const ApplicationContainer = ({}) => {
               )}
             </>
           )}
+          <br />
         </Col>
       </Row>
       <Row>
@@ -76,6 +79,13 @@ const ApplicationContainer = ({}) => {
             </Alert>
           )}
         </Col>
+      </Row>
+      <Row>
+        {data && data.lpersonapp?.length && data.lper?.length && (
+          <Col>
+            <LPersonApp data={data} />
+          </Col>
+        )}
       </Row>
     </Container>
   )

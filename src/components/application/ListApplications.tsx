@@ -3,7 +3,6 @@ import { Fragment, useEffect, useState } from "react"
 import dayjs from "dayjs"
 
 import Card from "react-bootstrap/Card"
-import ListGroup from "react-bootstrap/ListGroup"
 import Spinner from "react-bootstrap/Spinner"
 
 import AppConfig from "../../AppConfig"

@@ -6,9 +6,26 @@ interface IApplication {
   client_secret?: string
   created_at?: string
 }
-
+interface IPerson {
+  id?: number
+  dni: string
+  nombre: string
+  apellidos: string
+  email: string
+  telefono: string
+  created_at?: string
+}
+interface IPersonApp {
+  id: number
+  person_id: number
+  auth_client_id: number
+  created_at: string
+  profile: any
+}
 interface IApplicationData {
   application: IApplication
+  lpersonapp: IPersonApp[]
+  lper: IPerson[]
 }
 
-export { IApplication, IApplicationData }
+export { IApplication, IPersonApp, IPerson, IApplicationData }
