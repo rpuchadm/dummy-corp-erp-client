@@ -55,7 +55,7 @@ const ApplicationContainer = ({}) => {
           {isLoading || !data ? (
             <Spinner animation="border" role="status" />
           ) : (
-            <Application application={data} />
+            <Application {...{ data, setData }} />
           )}
         </Col>
       </Row>

@@ -160,6 +160,7 @@ const Person = ({ person }: PersonProps) => {
           <Button
             disabled={!!(isLoading || message || error)}
             onClick={handleSave}
+            variant="primary"
           >
             {isLoading ? <Spinner animation="border" size="sm" /> : <FaUser />}{" "}
             {person.id ? <>Update</> : <>Create</>}

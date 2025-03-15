@@ -5,10 +5,12 @@ npm create vite@latest dummy-corp-erp-client -- --template react-ts
   npm run dev
 
 npm run build
-docker build -t vite-nginx-app .
-docker tag vite-nginx-app localhost:32000/dummy-corp-erp-vite-app:latest
+docker build -t dummy-corp-erp-vite-app .
+docker tag dummy-corp-erp-vite-app localhost:32000/dummy-corp-erp-vite-app:latest
 docker push localhost:32000/dummy-corp-erp-vite-app:latest
 microk8s kubectl rollout restart deploy dummy-corp-erp-vite-nginx-app -n dummy-corp-erp-namespace
+
+
 -----------------
 
 https://erp.mydomain.com/

@@ -48,7 +48,7 @@ const ListPersons = () => {
         <Spinner animation="border" role="status" />
       ) : (
         <ListGroup>
-          {persons.map((person) => (
+          {persons?.map((person) => (
             <ListGroup.Item key={person.id}>
               <Card>
                 <Card.Header>
