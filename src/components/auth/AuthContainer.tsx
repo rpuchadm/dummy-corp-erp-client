@@ -101,7 +101,6 @@ const AuthContainer = ({ children }: AuthContainerProps) => {
 
   useEffect(() => {
     const fetchAuth = async () => {
-      console.log("fetchAuth")
       const url = AppConfig.API_BASE_URL + "auth"
       const response = await fetch(url, {
         method: "GET",
