@@ -89,13 +89,9 @@ const PersonAppContainer = ({}) => {
             <Spinner animation="border" role="status" />
           ) : (
             <>
-              {data ? (
+              {data.person && data.app ? (
                 <PersonApp {...{ data, setData, iidPer, iidApp }} />
-              ) : (
-                <Alert variant="danger">
-                  <FaExclamationTriangle /> PersonApp not found
-                </Alert>
-              )}
+              ) : null}
             </>
           )}
         </Col>

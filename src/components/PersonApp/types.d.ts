@@ -2,6 +2,7 @@ interface IApplication {
   id: number
   client_id: string
   client_url: string
+  client_url_callback?: string
 }
 interface IPerson {
   id?: number
