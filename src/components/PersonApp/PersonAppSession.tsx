@@ -4,26 +4,29 @@ import Alert from "react-bootstrap/esm/Alert"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/esm/Card"
 import Spinner from "react-bootstrap/esm/Spinner"
-import {
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaInfoCircle,
-  FaPlus,
-} from "react-icons/fa"
+import { FaCheckCircle, FaExclamationTriangle, FaPlus } from "react-icons/fa"
 
 import AppConfig from "../../AppConfig"
-import { IPersonAppData, IPersonApp } from "./types"
+
+interface IPersonAppSessionResponse {
+  code: string
+}
 
 interface PersonAppSessionProps {
   iidPer: number
   iidApp: number
+  client_url_callback: string
 }
 
-const PersonAppSession = ({ iidPer, iidApp }: PersonAppSessionProps) => {
+const PersonAppSession = ({
+  iidPer,
+  iidApp,
+  client_url_callback,
+}: PersonAppSessionProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [session, setSession] = useState<string>("")
+  const [code, setCode] = useState<string>("")
 
   const handleSession = (
     ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
@@ -33,13 +36,7 @@ const PersonAppSession = ({ iidPer, iidApp }: PersonAppSessionProps) => {
 
     const url =
       AppConfig.API_BASE_URL + "personapp-session/" + iidPer + "/" + iidApp
-    const personapp: IPersonApp = {
-      id,
-      person_id: iidPer,
-      auth_client_id: iidApp,
-      profile,
-    }
-    const sendPersonApp = async (personapp: IPersonApp) => {
+    const sendPersonAppSession = async () => {
       const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: "POST",
@@ -47,47 +44,51 @@ const PersonAppSession = ({ iidPer, iidApp }: PersonAppSessionProps) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${lstoken}`,
         },
-        body: JSON.stringify(personapp),
+        body: JSON.stringify({}),
       })
       const data = await response.json()
       if (response.status !== 200 || data.error) {
         setError(data.error)
       } else {
         setMessage("PersonApp updated correctly")
-        const personapp = data as IPersonApp
-        if (personapp) {
-          setData((prev) => {
-            return {
-              ...prev,
-              personapp,
-            }
-          })
+        const personappsessionresp = data as IPersonAppSessionResponse
+        if (personappsessionresp) {
+          setCode(personappsessionresp.code)
         }
       }
       setIsLoading(false)
     }
-    sendPersonApp(personapp)
+    sendPersonAppSession()
   }
 
+  const callback = client_url_callback + code
   return (
     <Card>
       <Card.Header>Start a session fot this person at this app.</Card.Header>
       <Card.Body>
-        <Button
-          disabled={!!(isLoading || message || error || session)}
-          onClick={handleSession}
-        >
-          {isLoading ? <Spinner /> : <FaPlus />} Start session
-        </Button>
         {error && (
           <Alert variant="danger">
             <FaExclamationTriangle /> {error}
           </Alert>
         )}
-        {session && (
+        {code ? (
           <Alert variant="success">
-            <FaCheckCircle /> {session}
+            <Alert.Heading>
+              <FaCheckCircle /> Session started correctly
+            </Alert.Heading>
+            Code: {code}
+            <hr />
+            <Alert.Link href={callback} target="_blank" rel="noreferrer">
+              Continue with session
+            </Alert.Link>
           </Alert>
+        ) : (
+          <Button
+            disabled={!!(isLoading || message || error || code)}
+            onClick={handleSession}
+          >
+            {isLoading ? <Spinner /> : <FaPlus />} Start session
+          </Button>
         )}
       </Card.Body>
     </Card>

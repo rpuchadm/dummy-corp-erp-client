@@ -26,4 +26,8 @@ interface IPersonAppData {
   app: IApplication
 }
 
+export interface IPersonAppSessionResponse {
+  code: string
+}
+
 export { IApplication, IPerson, IPersonApp, IPersonAppData }

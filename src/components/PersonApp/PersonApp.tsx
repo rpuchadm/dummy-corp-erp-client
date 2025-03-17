@@ -31,7 +31,6 @@ const PersonApp = ({ data, setData, iidPer, iidApp }: PersonAppProps) => {
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
   const [profile, setProfile] = useState<string>(personapp.profile)
-  const [session, setSession] = useState<string>("")
 
   const handleProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile(e.target.value)
@@ -135,7 +134,10 @@ const PersonApp = ({ data, setData, iidPer, iidApp }: PersonAppProps) => {
       )}
       {data.app.client_url_callback && (
         <>
-          <PersonAppSession {...{ iidPer, iidApp }} />
+          <PersonAppSession
+            {...{ iidPer, iidApp }}
+            client_url_callback={data.app.client_url_callback}
+          />
           <br />
         </>
       )}
