@@ -30,7 +30,9 @@ const PersonApp = ({ data, setData, iidPer, iidApp }: PersonAppProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [profile, setProfile] = useState<string>(personapp.profile)
+  const [profile, setProfile] = useState<string>(
+    personapp.profile ? personapp.profile : ""
+  )
 
   const handleProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile(e.target.value)
@@ -55,49 +57,6 @@ const PersonApp = ({ data, setData, iidPer, iidApp }: PersonAppProps) => {
       const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
       const response = await fetch(url, {
         method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lstoken}`,
-        },
-        body: JSON.stringify(personapp),
-      })
-      const data = await response.json()
-      if (response.status !== 200 || data.error) {
-        setError(data.error)
-      } else {
-        setMessage("PersonApp updated correctly")
-        const personapp = data as IPersonApp
-        if (personapp) {
-          setData((prev) => {
-            return {
-              ...prev,
-              personapp,
-            }
-          })
-        }
-      }
-      setIsLoading(false)
-    }
-    sendPersonApp(personapp)
-  }
-  const handleSession = (
-    ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) => {
-    ev.preventDefault()
-    setIsLoading(true)
-
-    const url =
-      AppConfig.API_BASE_URL + "personapp-session/" + iidPer + "/" + iidApp
-    const personapp: IPersonApp = {
-      id,
-      person_id: iidPer,
-      auth_client_id: iidApp,
-      profile,
-    }
-    const sendPersonApp = async (personapp: IPersonApp) => {
-      const lstoken = localStorage.getItem(AppConfig.TOKEN_ITEM_NAME)
-      const response = await fetch(url, {
-        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${lstoken}`,

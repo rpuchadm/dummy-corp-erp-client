@@ -16,7 +16,7 @@ interface IPerson {
 interface IPersonApp {
   auth_client_id: number
   person_id: number
-  profile: string
+  profile?: string
   id?: number
   created_at?: string
 }
@@ -24,10 +24,6 @@ interface IPersonAppData {
   personapp: IPersonApp
   person: IPerson
   app: IApplication
-}
-
-export interface IPersonAppSessionResponse {
-  code: string
 }
 
 export { IApplication, IPerson, IPersonApp, IPersonAppData }

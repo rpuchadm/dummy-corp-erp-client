@@ -17,7 +17,7 @@ const PersonAppContainer = ({}) => {
   const { idper, idapp } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [data, setData] = useState<IPersonAppData>({
-    personapp: { person_id: "", application_id: "" },
+    personapp: { person_id: 0, auth_client_id: 0 },
     person: { dni: "", nombre: "", apellidos: "", email: "", telefono: "" },
     app: { id: 0, client_id: "", client_url: "" },
   })
