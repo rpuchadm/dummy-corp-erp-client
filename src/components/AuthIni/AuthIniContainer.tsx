@@ -10,6 +10,7 @@ import { FaExclamationTriangle } from "react-icons/fa"
 import AppConfig from "../../AppConfig"
 import AuthIni from "./AuthIni"
 import { IAuthIniData } from "./types"
+import { Alert } from "react-bootstrap"
 
 const AuthIniContainer = () => {
   // /auth/?client_id=CRM&redirect_uri=https%3A%2F%2Fcrm.mydomain.com%2Fauthback%2F%3Fcode%3D
@@ -49,6 +50,24 @@ const AuthIniContainer = () => {
     setIsLoading(true)
     fetchApplication()
   }, [client_id])
+
+  if (!client_id || !redirect_uri) {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <Alert variant="danger">
+              <Alert.Heading>
+                <FaExclamationTriangle />
+                Error
+              </Alert.Heading>
+              <p>Invalid parameters</p>
+            </Alert>
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
 
   return (
     <Container>

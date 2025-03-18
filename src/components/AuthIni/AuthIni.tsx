@@ -70,6 +70,17 @@ const AuthIni = ({ client_id, redirect_uri, data }: AuthIniProps) => {
       </Alert>
     )
   }
+  if (!data.application.id) {
+    return (
+      <Alert variant="danger">
+        <Alert.Heading>Authentication Initialazer Error</Alert.Heading>
+        <p>
+          <FaBomb size={25} /> application.id no definida.
+        </p>
+      </Alert>
+    )
+  }
+  const application_id = data.application.id
 
   return (
     <>
@@ -104,11 +115,10 @@ const AuthIni = ({ client_id, redirect_uri, data }: AuthIniProps) => {
               {data.lper.map((per) => (
                 <AuthIniPerson
                   key={per.id}
-                  application_id={data.application.id}
+                  {...{ application_id, per }}
                   personapp={data.lpersonapp?.find(
                     (pa) => pa.person_id === per.id
                   )}
-                  per={per}
                 />
               ))}
             </Row>
