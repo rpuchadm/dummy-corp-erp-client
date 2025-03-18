@@ -74,7 +74,7 @@ const PersonAppSession = ({
         {code ? (
           <Alert variant="success">
             <Alert.Heading>
-              <FaCheckCircle /> Session started correctly
+              <FaCheckCircle /> Session prepared to start correctly
             </Alert.Heading>
             Code: {code}
             <hr />
