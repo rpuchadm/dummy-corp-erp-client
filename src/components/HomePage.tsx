@@ -9,11 +9,10 @@ const HomePage = () => {
       </p>
       <p>
         En el marco de un Trabajo de Fin de Grado en Informática, se ha
-        desarrollado Dummy Corp ERP, una plataforma de gestión empresarial
-        simulada diseñada para crear un entorno empresarial. Este sistema
-        permite la administración de personas y aplicaciones, ofreciendo
-        funcionalidades básicas de creación, modificación, eliminación y
-        actualización de registros.
+        desarrollado Dummy Corp ERP, una plataforma de gestión diseñada para
+        simular un entorno empresarial. Este sistema permite la administración
+        de personas y aplicaciones, ofreciendo funcionalidades básicas de
+        creación, modificación, eliminación y actualización de registros.
       </p>
       <p>
         Dummy Corp ERP integra un sistema de autenticación que facilita la
