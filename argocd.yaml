@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dummy-corp-erp-client
+spec:
+  destination:
+    namespace: dummy-corp-erp-namespace
+    server: https://kubernetes.default.svc
+  source:
+    path: k8s
+    repoURL: https://github.com/rpuchadm/dummy-corp-erp-client.git
+    targetRevision: HEAD
+  sources: []
+  project: default
